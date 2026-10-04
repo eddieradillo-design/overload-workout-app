@@ -1390,16 +1390,30 @@ button{cursor:pointer}.display{font-family:Oswald,sans-serif;text-transform:uppe
 @keyframes softRise{from{opacity:0;transform:translateY(13px)}to{opacity:1;transform:none}}@keyframes missionFloat{from{opacity:0;transform:translateY(24px) scale(.985)}to{opacity:1;transform:none}}@keyframes ringBreathe{0%,100%{transform:scale(.97);opacity:.78}50%{transform:scale(1.025);opacity:1}}@keyframes metricSoft{from{opacity:0;transform:scale(.96) translateY(10px)}to{opacity:1;transform:none}}@keyframes sheetUp{from{opacity:0;transform:translateY(32px) scale(.98)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
 @media(min-width:700px){.wrap{padding-left:24px!important;padding-right:24px!important}.weekly-metrics{grid-template-columns:repeat(4,1fr)!important}.workout-preview-hero{min-height:440px!important}}
+
+/* Independent concept: same progression engine, independently composed product */
+.wrap{padding-top:8px!important}.header{padding-top:22px!important}.title{font-size:17px!important;letter-spacing:.16em!important}
+.workout-preview-hero{min-height:440px!important;padding:28px 24px!important;justify-content:flex-end!important;background:radial-gradient(circle at 50% 25%,rgba(167,255,79,.11),transparent 25%),#080809!important;border-radius:34px!important}
+.workout-preview-hero:before{content:"";position:absolute;left:50%;top:44px;width:210px;height:210px;transform:translateX(-50%);border-radius:50%;background:conic-gradient(#A7FF4F 0 68%,#242426 68%);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 8px),#000 0);mask:radial-gradient(farthest-side,transparent calc(100% - 8px),#000 0);animation:independentRing 5s ease-in-out infinite}.workout-preview-hero:after{content:"TODAY";position:absolute;top:137px;left:0;right:0;text-align:center;font-size:11px;font-weight:700;letter-spacing:.18em;color:#77777C}
+.workout-preview-hero .preview-eyebrow{font-size:10px!important;letter-spacing:.16em!important;color:#8E8E93!important}.workout-preview-hero .preview-title{font-size:clamp(40px,11vw,58px)!important;line-height:.94!important;max-width:100%!important;letter-spacing:-.055em!important}.workout-preview-hero .preview-sub{font-size:14px!important;max-width:92%!important}.workout-preview-hero .preview-chip{background:#18181A!important}
+.logdate{background:transparent!important;border:0!important;box-shadow:none!important;padding:14px 0!important;border-radius:0!important}.logdate>div:first-child .display:first-child{color:#A7FF4F!important;letter-spacing:.12em!important}.logdate>div:first-child .display:last-child{font-size:34px!important;letter-spacing:-.04em!important}
+#tab-log>.card.section:not(.logdate){background:transparent!important;border:0!important;box-shadow:none!important;padding:4px 0 18px!important}#tab-log>.card.section:not(.logdate) .row{background:#121214;border-radius:18px;padding:8px}#tab-log>.section>.label{font-size:11px!important;letter-spacing:.13em!important;color:#6E6E73!important;margin:30px 0 10px!important}
+#tab-log .exercise{position:relative!important;background:transparent!important;border:0!important;border-radius:0!important;padding:0 0 0 48px!important;overflow:visible!important}#tab-log .exercise:before{content:"";position:absolute;left:14px;top:18px;width:15px;height:15px;border:2px solid #4A4A4E;border-radius:50%;background:#000;z-index:2}#tab-log .exercise:after{content:"";position:absolute;left:21px;top:34px;bottom:-16px;width:1px;background:#2C2C2E}#tab-log .exercise:last-of-type:after{display:none}
+#tab-log .exercise-head{width:100%!important;min-height:84px!important;display:grid!important;grid-template-columns:1fr auto!important;align-items:center!important;text-align:left!important;padding:12px 0 18px!important;border-bottom:1px solid #242426!important}#tab-log .exercise-head.active{color:#A7FF4F!important}#tab-log .exercise:has(.exercise-head.active):before{border-color:#A7FF4F;background:#A7FF4F;box-shadow:0 0 0 6px rgba(167,255,79,.1)}#tab-log .entry{margin:12px 0 26px!important}.setrow{border-radius:18px!important}
+.weekly-head{min-height:360px!important;padding:38px 2px 28px!important;justify-content:flex-end!important;border-bottom:0!important}.weekly-head:before{content:"YOUR TRAINING";display:block!important;position:absolute;left:2px;top:72px;font-size:11px;font-weight:700;letter-spacing:.16em;color:#A7FF4F}.weekly-head:after{content:"FORWARD.";display:block!important;position:static!important;font-size:clamp(66px,19vw,104px)!important;line-height:.82!important;font-weight:700!important;letter-spacing:-.075em!important;color:#F5F5F7!important;opacity:1!important;margin-top:8px}.weekly-overview-word{font-size:clamp(66px,19vw,104px)!important;line-height:.82!important;font-weight:700!important;letter-spacing:-.075em!important}.weekly-date{position:absolute;top:24px;left:2px}
+.weekly-metrics{display:grid!important;grid-template-columns:1fr 1fr!important;gap:1px!important;background:#2C2C2E!important;border-radius:26px!important;overflow:hidden!important}.weekly-metric{border:0!important;border-radius:0!important;background:#111113!important;min-height:150px!important}.weekly-metric-num{font-size:48px!important}.weekly-metric-icon{order:3!important}.weekly-section-title{font-size:26px!important;font-weight:650!important;letter-spacing:-.035em!important;color:#F5F5F7!important}.weekly-target{min-height:230px!important;display:flex!important;flex-direction:column!important;justify-content:center!important}.target-big{font-size:34px!important}.weekplan-item{border-bottom:1px solid #242426!important}.weekplan-row{min-height:76px!important;background:transparent!important}.weekly-win{min-height:150px!important}
+.exercise-level-intro{min-height:650px!important}.eli-weight{top:128px!important;font-size:86px!important}.exercise-level-intro:before{width:270px!important;height:270px!important;top:48px!important}.eli-mission{margin-top:18px!important}
+@keyframes independentRing{0%,100%{transform:translateX(-50%) scale(.97);filter:drop-shadow(0 0 0 rgba(167,255,79,0))}50%{transform:translateX(-50%) scale(1.025);filter:drop-shadow(0 0 18px rgba(167,255,79,.18))}}
 </style>
 </head>
 <body>
 <div class="app">
   <nav class="tabs">
-    <button class="tab active" data-tab="week"><span class="tabicon">▣</span><span class="display tablabel">Weekly</span></button>
-    <button class="tab" data-tab="log"><span class="tabicon">＋</span><span class="display tablabel">Log</span></button>
-    <button class="tab" data-tab="calendar"><span class="tabicon">▦</span><span class="display tablabel">Calendar</span></button>
-    <button class="tab" data-tab="progress"><span class="tabicon">↗</span><span class="display tablabel">Progress</span></button>
-    <button class="tab" data-tab="plan"><span class="tabicon">⚙</span><span class="display tablabel">Plan</span></button>
+    <button class="tab active" data-tab="week"><span class="tabicon">▣</span><span class="display tablabel">Overview</span></button>
+    <button class="tab" data-tab="log"><span class="tabicon">＋</span><span class="display tablabel">Train</span></button>
+    <button class="tab" data-tab="calendar"><span class="tabicon">▦</span><span class="display tablabel">Activity</span></button>
+    <button class="tab" data-tab="progress"><span class="tabicon">↗</span><span class="display tablabel">Growth</span></button>
+    <button class="tab" data-tab="plan"><span class="tabicon">⚙</span><span class="display tablabel">Program</span></button>
   </nav>
   <main class="wrap">
     <section id="tab-week"></section>
@@ -1875,7 +1889,7 @@ function renderWeek(){
 
  document.getElementById("tab-week").innerHTML=`
  <div class="weekly-head">
-   <div class="display" style="font-size:18px;font-weight:700">Weekly</div>
+   <div class="display weekly-overview-word">PROGRESS</div>
    <div class="weekly-date">▦ ${shortDate(fmtDate(ws))} – ${shortDate(fmtDate(we))}</div>
  </div>
 
@@ -1898,7 +1912,7 @@ function renderWeek(){
 
  <div class="section">
    <div class="weekly-section-head">
-     <div class="weekly-section-title">⚡ Close to Leveling Up</div>
+     <div class="weekly-section-title">Up Next</div>
      <span id="carousel-count" class="weekly-carousel-count">${d.close.length?`1 / ${d.close.length}`:""}</span>
    </div>
    <div class="weekly-carousel-wrap">
@@ -1918,7 +1932,7 @@ function renderWeek(){
 
  <div class="section">
    <div class="weekly-section-head">
-     <div class="weekly-section-title">▦ This Week's Plan</div>
+     <div class="weekly-section-title">Your Week</div>
      <span class="mono sub">${completedExercises} / ${plannedExercises} logged</span>
    </div>
    <div class="weekplan-list">${plan}</div>
@@ -1926,7 +1940,7 @@ function renderWeek(){
 
  <div class="section">
    <div class="weekly-section-head">
-     <div class="weekly-section-title">◇ This Week's Wins</div>
+     <div class="weekly-section-title">Earned</div>
      ${d.wins.length>3?`<button id="wins-more" class="weekly-see">See all (${d.wins.length}) ›</button>`:""}
    </div>
    <div class="weekly-wins">${wins}</div>
@@ -2231,7 +2245,7 @@ function renderWorkoutPreviewHero(){
  const ops=todayOpportunities(), mastery=ops.filter(x=>x.mastery).length, levels=ops.filter(x=>!x.mastery&&x.prev).length;
  if(!ops.length)return "";
  const seen=workoutPreviewSeenDate===logDate;
- return `<div class="workout-preview-hero ${seen?"previewed":""}"><div class="preview-eyebrow">Before you train</div><div class="preview-title">${seen?"WORKOUT PREVIEW":"SEE WHAT YOU CAN ACCOMPLISH"}</div><div class="sub" style="margin-top:5px">A quick preview of today's targets based on your last performance.</div><div class="preview-summary"><span class="preview-chip">⚡ ${levels} Level-Up Attempt${levels===1?"":"s"}</span>${mastery?`<span class="preview-chip mastery">🏆 ${mastery} Mastery Attempt${mastery===1?"":"s"}</span>`:""}<span class="preview-chip">${ops.length} Exercises</span></div><button id="open-workout-preview" class="btn primary full">${seen?"VIEW AGAIN →":"PREVIEW WORKOUT →"}</button></div>`;
+ return `<div class="workout-preview-hero ${seen?"previewed":""}"><div class="preview-eyebrow">TODAY’S OPPORTUNITY</div><div class="preview-title">${seen?"YOUR TARGETS":"MOVE FORWARD TODAY"}</div><div class="sub" style="margin-top:5px">A quick preview of today's targets based on your last performance.</div><div class="preview-summary"><span class="preview-chip">⚡ ${levels} Level-Up Attempt${levels===1?"":"s"}</span>${mastery?`<span class="preview-chip mastery">🏆 ${mastery} Mastery Attempt${mastery===1?"":"s"}</span>`:""}<span class="preview-chip">${ops.length} Exercises</span></div><button id="open-workout-preview" class="btn primary full">${seen?"REVIEW TARGETS →":"SEE TODAY’S TARGETS →"}</button></div>`;
 }
 function showWorkoutPreview(index=0){
  workoutPreviewSeenDate=logDate;
