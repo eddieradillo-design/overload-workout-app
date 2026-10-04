@@ -1402,6 +1402,8 @@ html,body{background:var(--bg)!important}body{background-image:radial-gradient(c
 #load-demo-data,#clear-app-data{min-height:34px!important;padding:7px 10px!important;border:0!important;background:transparent!important;box-shadow:none!important;font-size:10px!important;color:var(--dim)!important;opacity:.72!important}
 #load-demo-data:before{content:"Demo tools · "!important}
 #clear-app-data{color:#9A7474!important}
+
+.workout-complete-btn{animation:none!important;background:rgba(103,194,138,.07)!important;border-color:rgba(103,194,138,.24)!important;color:var(--good)!important;box-shadow:none!important}
 </style></head>
 <body>
 <div class="app">
@@ -2297,9 +2299,11 @@ function workoutRecapData(date=logDate){
  return {today,total,prevTotal,comparable,improved,repGain,mastered,levels};
 }
 function showWorkoutRecap(){
+ if(!Array.isArray(state.workoutFinishedDates))state.workoutFinishedDates=[];
+ if(!state.workoutFinishedDates.includes(logDate)){state.workoutFinishedDates.push(logDate);save();}
  const r=workoutRecapData(); if(!r.today.length){notify("Log an exercise first");return;} const beat=r.repGain>0||r.mastered>0||r.levels>0;
  document.getElementById("modal-root").innerHTML=`<div class="modal-bg"><div class="modal recap-modal"><div id="share-card" class="share-card"><div class="share-brand">${brandMarkSVG()}</div><div class="share-title">${DAYLONG[localDate(logDate).getDay()].toUpperCase()} WORKOUT COMPLETE</div><div class="share-verdict">${beat?"YOU BEAT YOUR LAST WORKOUT":"WORKOUT LOGGED. KEEP BUILDING."}</div><div class="recap-compare"><div class="recap-box"><div class="l">Last comparable workout</div><div class="v">${r.comparable?r.prevTotal:"—"}</div><div class="l">total reps</div></div><div class="recap-box today"><div class="l">Today</div><div class="v">${r.total}</div><div class="l">${r.repGain>0?`+${r.repGain} reps gained`:"total reps"}</div></div></div><div class="recap-stats"><div class="recap-stat"><div class="v">${r.improved}/${r.comparable||r.today.length}</div><div class="l">Exercises improved</div></div><div class="recap-stat"><div class="v">${r.levels}</div><div class="l">Levels gained</div></div><div class="recap-stat"><div class="v">${r.mastered}</div><div class="l">Weights mastered</div></div></div><div class="recap-list">${r.today.slice(0,6).map(x=>`<div class="recap-row"><span>${x.name}</span><span class="delta">${x.delta==null?x.now+" reps":`${x.delta>0?"+":""}${x.delta} reps`}</span></div>`).join("")}</div></div><div class="recap-actions"><button id="recap-share" class="btn primary">SHARE PROGRESS</button><button id="recap-close" class="btn">DONE</button></div></div></div>`;
- document.getElementById("recap-close").onclick=()=>document.getElementById("modal-root").innerHTML="";
+ document.getElementById("recap-close").onclick=()=>{document.getElementById("modal-root").innerHTML="";renderLog();};
  document.getElementById("recap-share").onclick=async()=>{
   const btn=document.getElementById("recap-share");
   const card=document.getElementById("share-card");
@@ -2409,7 +2413,7 @@ function renderLog(){
  <div class="section">
    <div class="label">${scheduled.length?"Today's plan — tap an exercise to open it":"No workout scheduled"}</div>
    ${exerciseList}
-   ${state.logs.some(l=>l.date===logDate)?`<button id="finish-workout" class="btn full workout-finish-btn">✓ FINISH WORKOUT & SEE RESULTS</button>`:""}
+   ${state.logs.some(l=>l.date===logDate)?(state.workoutFinishedDates?.includes(logDate)?`<button id="finish-workout" class="btn full workout-finish-btn workout-complete-btn">✓ WORKOUT COMPLETE · VIEW RESULTS</button>`:`<button id="finish-workout" class="btn full workout-finish-btn">✓ FINISH WORKOUT & SEE RESULTS</button>`):""}
  </div>`;
 
  const previewBtn=document.getElementById("open-workout-preview"); if(previewBtn)previewBtn.onclick=()=>showWorkoutPreview(0);
