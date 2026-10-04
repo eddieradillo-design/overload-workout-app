@@ -1386,6 +1386,22 @@ html,body{background:var(--bg)!important}body{background-image:radial-gradient(c
 .weight-memory-badge,.plan-ex-row,.exercise-config,.plan-day-card,.plan-manager-card,.weight-trend-card{border-radius:16px!important}
 @keyframes donePop{0%{transform:scale(.82)}65%{transform:scale(1.08)}100%{transform:scale(1)}}@keyframes gentleGlow{0%,100%{box-shadow:0 7px 20px rgba(var(--accent-rgb),.13)}50%{box-shadow:0 7px 27px rgba(var(--accent-rgb),.27)}}.workout-finish-btn{animation:gentleGlow 2.1s ease-in-out infinite}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+
+/* Screenshot polish: softer weekly rows + tucked-away developer data tools */
+.weekplan-list{gap:8px!important}
+.weekplan-item{border-radius:16px!important;overflow:hidden!important;background:transparent!important}
+.weekplan-row{border-radius:16px!important;border:0!important;background:#1A1C23!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.055)!important;padding:11px 13px!important}
+.weekplan-row.today{border:0!important;background:linear-gradient(90deg,rgba(var(--accent-rgb),.09),#1A1C23 38%)!important;box-shadow:inset 0 0 0 1px rgba(var(--accent-rgb),.30)!important}
+.weekplan-row.expanded{border-radius:16px 16px 0 0!important}
+.weekplan-expand{border:0!important;border-radius:0 0 16px 16px!important;background:#171920!important;box-shadow:inset 0 -1px 0 rgba(255,255,255,.05),inset 1px 0 0 rgba(255,255,255,.05),inset -1px 0 0 rgba(255,255,255,.05)!important}
+.weekplan-pill{background:rgba(255,255,255,.025)!important;border-color:rgba(255,255,255,.10)!important}
+.weekplan-pill.done{background:rgba(103,194,138,.08)!important;border-color:rgba(103,194,138,.38)!important}
+.plan-danger-zone{margin-top:34px!important;padding:0!important;border:0!important;display:block!important}
+.plan-danger-zone>div:first-child{display:none!important}
+.plan-danger-zone>.row{justify-content:center!important;gap:10px!important}
+#load-demo-data,#clear-app-data{min-height:34px!important;padding:7px 10px!important;border:0!important;background:transparent!important;box-shadow:none!important;font-size:10px!important;color:var(--dim)!important;opacity:.72!important}
+#load-demo-data:before{content:"Demo tools · "!important}
+#clear-app-data{color:#9A7474!important}
 </style></head>
 <body>
 <div class="app">
