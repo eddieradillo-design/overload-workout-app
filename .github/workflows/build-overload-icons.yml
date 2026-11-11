@@ -1,0 +1,38 @@
+name: Build OVERLOAD PWA icons
+on:
+  push:
+    branches: [redesign-v2]
+    paths:
+      - '.github/workflows/build-overload-icons.yml'
+      - 'overload-icon.png'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  icons:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: redesign-v2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pillow
+      - name: Generate original-logo icons at native install sizes
+        run: |
+          python - <<'PY'
+          from PIL import Image
+          im=Image.open('overload-icon.png').convert('RGBA')
+          for size in (192,512):
+              im.resize((size,size),Image.Resampling.LANCZOS).save(f'overload-icon-{size}.png',optimize=True)
+          PY
+      - name: Commit generated icons
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add overload-icon-192.png overload-icon-512.png
+          if ! git diff --cached --quiet; then
+            git commit -m "Generate correct-size PWA icons from original OVERLOAD logo"
+            git push
+          fi
