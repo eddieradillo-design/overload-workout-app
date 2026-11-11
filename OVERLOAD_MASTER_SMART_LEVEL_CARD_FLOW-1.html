@@ -1439,6 +1439,14 @@ body{background-image:none!important;-webkit-tap-highlight-color:transparent}
 button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent)!important;outline-offset:2px!important}
 @media(min-width:650px){.tabs{left:50%!important;right:auto!important;transform:translateX(-50%)!important;max-width:600px!important;border-left:1px solid rgba(255,255,255,.08)!important;border-right:1px solid rgba(255,255,255,.08)!important;border-radius:18px 18px 0 0!important}}
 @media(prefers-reduced-motion:reduce){.tab{transition:none!important}}
+</style><style id="overload-plan-drag">
+.plan-drag-handle{width:44px;height:48px;display:grid;place-items:center;border:0;background:transparent;color:var(--muted);border-radius:12px;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+.plan-drag-handle:active,.plan-drag-handle.drag-active{color:var(--accent);background:rgba(var(--accent-rgb),.11);cursor:grabbing}
+.plan-ex-row{transition:background .16s ease,border-color .16s ease,opacity .16s ease}
+.plan-ex-row.plan-drag-source{opacity:.48;background:rgba(var(--accent-rgb),.06)}
+.plan-ex-row.plan-drag-target{background:rgba(var(--accent-rgb),.13);box-shadow:inset 0 2px 0 var(--accent);border-radius:10px}
+.plan-ex-actions{gap:3px!important}.plan-ex-actions .remove{min-width:32px;min-height:44px}
+@media(prefers-reduced-motion:reduce){.plan-ex-row{transition:none!important}}
 </style></head>
 <body>
 <div class="app">
@@ -4141,7 +4149,7 @@ function renderPlan(){
        <div class="plan-day-exercises" style="margin-top:8px">
          ${items.length?items.map((item,i)=>{
            const st=setting(item.group,item.exercise);
-           return `<div class="plan-ex-row">
+           return `<div class="plan-ex-row" data-drag-day="${day}" data-drag-index="${i}">
              <div class="plan-order">${i+1}</div>
 
              <div class="plan-ex-main">
@@ -4150,8 +4158,7 @@ function renderPlan(){
              </div>
 
              <div class="plan-ex-actions">
-               <button type="button" class="btn ghost compact" data-up="${day}|${i}" ${i===0?"disabled":""} aria-label="Move ${item.exercise} up">↑</button>
-               <button type="button" class="btn ghost compact" data-down="${day}|${i}" ${i===items.length-1?"disabled":""} aria-label="Move ${item.exercise} down">↓</button>
+               <button type="button" class="plan-drag-handle" data-drag-handle="${day}|${i}" aria-label="Hold and drag to reorder ${item.exercise}" title="Hold and drag to reorder"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="currentColor"><circle cx="9" cy="5" r="1.5"/><circle cx="15" cy="5" r="1.5"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="9" cy="19" r="1.5"/><circle cx="15" cy="19" r="1.5"/></svg></button>
                <button type="button" class="remove" data-rm="${day}|${i}" aria-label="Remove ${item.exercise} from ${names[day]}">×</button>
              </div>
            </div>`;
@@ -4479,19 +4486,74 @@ function renderPlan(){
    document.getElementById("cx-"+day).onclick=()=>{panel.innerHTML=""};
  });
 
- // REORDER / REMOVE EXERCISE FROM DAY
- document.querySelectorAll("[data-up]").forEach(btn=>btn.onclick=()=>{
-   const [day,i]=btn.dataset.up.split("|").map(Number);
-   moveDayExercise(day,i,-1);
-   renderPlan();
- });
 
- document.querySelectorAll("[data-down]").forEach(btn=>btn.onclick=()=>{
-   const [day,i]=btn.dataset.down.split("|").map(Number);
-   moveDayExercise(day,i,1);
-   renderPlan();
+ // Touch-friendly long-press drag reorder. Reuses existing dayPlans and save logic.
+ document.querySelectorAll("[data-drag-handle]").forEach(handle=>{
+   let timer=null,active=false,pointerId=null,from=0,to=0,day=0,originY=0,marker=null,rows=[],lastY=0;
+   const cleanup=()=>{
+     clearTimeout(timer);timer=null;
+     rows.forEach(r=>r.classList.remove("plan-drag-source","plan-drag-target"));
+     if(marker){marker.remove();marker=null}
+     handle.classList.remove("drag-active");
+     active=false;pointerId=null;
+   };
+   handle.addEventListener("pointerdown",ev=>{
+     if(ev.button!==0)return;
+     [day,from]=handle.dataset.dragHandle.split("|").map(Number);
+     to=from;originY=ev.clientY;lastY=ev.clientY;pointerId=ev.pointerId;
+     rows=[...handle.closest(".plan-day-card").querySelectorAll(".plan-ex-row")];
+     // Hold briefly so an accidental tap does not rearrange the workout.
+     timer=setTimeout(()=>{
+       active=true;handle.classList.add("drag-active");
+       rows[from]?.classList.add("plan-drag-source");
+       if(navigator.vibrate)navigator.vibrate(18);
+       handle.setPointerCapture(pointerId);
+     },170);
+   });
+   handle.addEventListener("pointermove",ev=>{
+     if(ev.pointerId!==pointerId)return;
+     lastY=ev.clientY;
+     if(!active){
+       if(Math.abs(lastY-originY)>12)clearTimeout(timer);
+       return;
+     }
+     ev.preventDefault();
+     const hit=rows.findIndex(r=>{const b=r.getBoundingClientRect();return lastY>=b.top&&lastY<=b.bottom});
+     if(hit>=0)to=hit;
+     else if(lastY<rows[0].getBoundingClientRect().top)to=0;
+     else if(lastY>rows[rows.length-1].getBoundingClientRect().bottom)to=rows.length-1;
+     rows.forEach((r,i)=>r.classList.toggle("plan-drag-target",i===to&&i!==from));
+     const margin=90;
+     if(lastY<margin)window.scrollBy(0,-14);
+     if(lastY>window.innerHeight-margin)window.scrollBy(0,14);
+   });
+   const finish=ev=>{
+     if(pointerId!==ev.pointerId)return;
+     const wasActive=active,old=from,next=to,d=day;
+     cleanup();
+     if(wasActive&&old!==next){
+       const arr=dayPlan(d);
+       const [moved]=arr.splice(old,1);
+       arr.splice(next,0,moved);
+       syncScheduleFromDayPlans();save();renderPlan();
+       if(navigator.vibrate)navigator.vibrate(12);
+     }
+   };
+   handle.addEventListener("pointerup",finish);
+   handle.addEventListener("pointercancel",cleanup);
+   handle.addEventListener("lostpointercapture",()=>{if(active)cleanup()});
+   // Accessible keyboard alternative: focus handle and use Alt+Up / Alt+Down.
+   handle.addEventListener("keydown",ev=>{
+     if(!ev.altKey||!["ArrowUp","ArrowDown"].includes(ev.key))return;
+     ev.preventDefault();
+     const [d,i]=handle.dataset.dragHandle.split("|").map(Number);
+     moveDayExercise(d,i,ev.key==="ArrowUp"?-1:1);
+     renderPlan();
+     const ni=Math.max(0,Math.min(dayPlan(d).length-1,i+(ev.key==="ArrowUp"?-1:1)));
+     document.querySelector('[data-drag-handle="'+d+'|'+ni+'"]')?.focus();
+   });
  });
-
+ 
  document.querySelectorAll("[data-rm]").forEach(btn=>btn.onclick=()=>{
    const [day,i]=btn.dataset.rm.split("|").map(Number);
    removeDayExercise(day,i);
