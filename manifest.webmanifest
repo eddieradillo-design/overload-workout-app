@@ -10,14 +10,20 @@
   "theme_color": "#14151A",
   "icons": [
     {
-      "src": "/overload-icon.png",
+      "src": "/overload-icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/overload-icon.png",
-      "sizes": "192x192",
+      "src": "/overload-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/overload-icon-512.png",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
     }
