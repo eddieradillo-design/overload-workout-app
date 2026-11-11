@@ -1,0 +1,19 @@
+{
+  "id": "/OVERLOAD_MASTER_SMART_LEVEL_CARD_FLOW-1.html",
+  "name": "OVERLOAD",
+  "short_name": "OVERLOAD",
+  "description": "Progressive overload workout tracker",
+  "start_url": "/OVERLOAD_MASTER_SMART_LEVEL_CARD_FLOW-1.html",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#14151A",
+  "theme_color": "#14151A",
+  "icons": [
+    {
+      "src": "/overload-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
