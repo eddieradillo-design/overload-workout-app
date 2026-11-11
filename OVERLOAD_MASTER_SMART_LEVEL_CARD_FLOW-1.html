@@ -1409,7 +1409,7 @@ html,body{background:var(--bg)!important}body{background-image:radial-gradient(c
 /* Phase 1: design system, navigation, and controls only. */
 :root{
  --accent:#6EA8E5;--accent-rgb:110,168,229;
- --bg:#14151A;--surface-0:#14151A;--surface-1:#1B1D24;--surface-2:#232630;--surface-3:#2D313C;
+ --bg:#1C1C1E;--surface-0:#1C1C1E;--surface-1:#262629;--surface-2:#303034;--surface-3:#39393E;
  --panel:var(--surface-1);--chip:var(--surface-2);--border:#333741;
  --text:#F5F6F8;--text-primary:#F5F6F8;--text-secondary:#B1B5BF;--text-tertiary:#818692;--muted:var(--text-secondary);--dim:var(--text-tertiary);
  --radius-xs:8px;--radius-sm:12px;--radius-md:16px;--radius-lg:20px;--radius-xl:24px;
@@ -1483,14 +1483,14 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .calday:has(.cal-status.missed){background:rgba(217,109,99,.10)!important}
 @media(prefers-reduced-motion:reduce){.motion-reveal,.motion-celebrate,.motion-enter,.motion-sparkles i,.set-complete-btn.done,.setrow:has(.set-complete-btn.done),.recap-modal .recap-stat,.recap-modal .recap-row,.recap-modal .recap-box,.weight-memory-badge.mastered,.weight-badge.mastered{animation:none!important}*,*:before,*:after{scroll-behavior:auto!important;transition-duration:0.01ms!important}}
 </style><style id="overload-launch-transition-v1">
-#overload-launch{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#14151A;pointer-events:none;opacity:1;transition:opacity .32s ease;overflow:hidden}
+#overload-launch{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#1C1C1E;pointer-events:none;opacity:1;transition:opacity .65s cubic-bezier(.2,.8,.2,1);overflow:hidden}
 #overload-launch.is-leaving{opacity:0}
-#overload-launch .launch-mark{width:min(74vw,330px);max-height:110px;object-fit:contain;display:block;opacity:0;transform:translateY(10px) scale(.94);animation:overloadLogoArrive .48s cubic-bezier(.2,.8,.2,1) .06s forwards;filter:drop-shadow(0 7px 20px rgba(91,155,217,.12))}
-#overload-launch .launch-halo{position:absolute;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(91,155,217,.10),transparent 70%);opacity:0;animation:overloadHalo .55s ease .08s forwards}
+#overload-launch .launch-mark{width:min(74vw,330px);max-height:110px;object-fit:contain;display:block;opacity:0;transform:translateY(10px) scale(.94);animation:overloadLogoArrive .95s cubic-bezier(.2,.8,.2,1) .12s forwards;filter:drop-shadow(0 7px 20px rgba(91,155,217,.12))}
+#overload-launch .launch-halo{position:absolute;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(91,155,217,.10),transparent 70%);opacity:0;animation:overloadHalo 1.1s ease .15s forwards}
 @keyframes overloadLogoArrive{to{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes overloadHalo{to{opacity:1}}
 body.overload-opening .app{opacity:.94;transform:translateY(5px)}
-body.overload-open .app{opacity:1;transform:translateY(0);transition:opacity .36s ease,transform .36s cubic-bezier(.2,.8,.2,1)}
+body.overload-open .app{opacity:1;transform:translateY(0);transition:opacity .65s ease,transform .65s cubic-bezier(.2,.8,.2,1)}
 @media(prefers-reduced-motion:reduce){#overload-launch,#overload-launch .launch-mark,#overload-launch .launch-halo,body.overload-opening .app,body.overload-open .app{animation:none!important;transition:none!important;transform:none!important}}
 </style></head>
 <body>
@@ -4757,8 +4757,8 @@ localStorage.removeItem("overloadSkipDemoSeed");applyTheme();seedDemo();save();t
      document.body.classList.remove("overload-opening");
      document.body.classList.add("overload-open");
      layer.classList.add("is-leaving");
-     setTimeout(()=>layer.remove(),350);
-   },520);
+     setTimeout(()=>layer.remove(),700);
+   },1850);
  }));
 })();
 </script></body>
