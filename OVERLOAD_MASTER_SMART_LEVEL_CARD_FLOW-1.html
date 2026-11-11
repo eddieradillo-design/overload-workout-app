@@ -1404,16 +1404,49 @@ html,body{background:var(--bg)!important}body{background-image:radial-gradient(c
 #clear-app-data{color:#9A7474!important}
 
 .workout-complete-btn{animation:none!important;background:rgba(103,194,138,.07)!important;border-color:rgba(103,194,138,.24)!important;color:var(--good)!important;box-shadow:none!important}
+</style>
+<style id="overload-ios-foundation-v1">
+/* Phase 1: design system, navigation, and controls only. */
+:root{
+ --accent:#6EA8E5;--accent-rgb:110,168,229;
+ --bg:#14151A;--surface-0:#14151A;--surface-1:#1B1D24;--surface-2:#232630;--surface-3:#2D313C;
+ --panel:var(--surface-1);--chip:var(--surface-2);--border:#333741;
+ --text:#F5F6F8;--text-primary:#F5F6F8;--text-secondary:#B1B5BF;--text-tertiary:#818692;--muted:var(--text-secondary);--dim:var(--text-tertiary);
+ --radius-xs:8px;--radius-sm:12px;--radius-md:16px;--radius-lg:20px;--radius-xl:24px;
+ --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;--space-8:32px;
+ --shadow-sm:0 2px 8px rgba(0,0,0,.13);--shadow-md:0 8px 24px rgba(0,0,0,.19);--shadow-lg:0 18px 48px rgba(0,0,0,.32);
+}
+html,body{background:var(--bg)!important;color:var(--text-primary)!important}
+body{background-image:none!important;-webkit-tap-highlight-color:transparent}
+.app{padding-bottom:calc(94px + env(safe-area-inset-bottom,0px))}
+.wrap{padding:var(--space-4) var(--space-4) var(--space-8)!important;max-width:600px!important}
+.tabs{position:fixed!important;top:auto!important;left:0!important;right:0!important;bottom:0!important;z-index:100!important;display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:0!important;padding:8px max(8px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))!important;min-height:76px!important;width:100%!important;max-width:none!important;height:auto!important;margin:0!important;border:0!important;border-top:1px solid rgba(255,255,255,.09)!important;border-radius:0!important;background:rgba(24,26,32,.96)!important;backdrop-filter:blur(22px) saturate(150%)!important;-webkit-backdrop-filter:blur(22px) saturate(150%)!important;box-shadow:0 -8px 30px rgba(0,0,0,.15)!important}
+.tab{position:relative!important;min-width:0!important;min-height:58px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;gap:5px!important;padding:7px 2px!important;border:0!important;border-radius:12px!important;background:transparent!important;color:#858A96!important;box-shadow:none!important;transition:color .18s ease,background .18s ease!important}
+.tab.active{color:var(--accent)!important;background:rgba(var(--accent-rgb),.075)!important}
+.tab.active:before{content:"";position:absolute;top:0;left:calc(50% - 13px);width:26px;height:3px;border-radius:0 0 3px 3px;background:var(--accent)}
+.tabicon{width:25px;height:25px;display:grid;place-items:center;line-height:1!important;font-size:0!important}.tabicon svg{display:block;width:23px;height:23px}
+.tablabel{font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif!important;font-size:10px!important;font-weight:650!important;letter-spacing:.01em!important;text-transform:none!important}
+.card,.weekly-metric,.weekly-target,.weekly-win,.weekplan-item,.plan-day-card,.plan-manager-card,.exercise-config,.weight-trend-card,.mastery-card,.challenge-card{background:var(--surface-1)!important;border:1px solid rgba(255,255,255,.075)!important;border-radius:var(--radius-lg)!important;box-shadow:var(--shadow-sm)!important}
+.weekplan-row{border-radius:var(--radius-lg)!important;background:var(--surface-1)!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.055)!important}
+.weekplan-item{overflow:hidden!important}.weekplan-pill{border-radius:999px!important}
+.btn,button:not(.tab){touch-action:manipulation}
+.btn{min-height:44px!important;border-radius:var(--radius-sm)!important;font-weight:650!important;box-shadow:none!important}
+.btn.primary{background:var(--accent)!important;border-color:var(--accent)!important;color:#10151C!important;box-shadow:0 4px 16px rgba(var(--accent-rgb),.15)!important}
+.input,select,textarea,.setinput{min-height:44px!important;border-radius:var(--radius-sm)!important;background:var(--surface-2)!important;border:1px solid rgba(255,255,255,.10)!important;color:var(--text-primary)!important}
+.exercise-head{min-height:60px!important;border-radius:var(--radius-md)!important;background:var(--surface-1)!important;border:1px solid rgba(255,255,255,.08)!important}
+.setrow,.weekly-target,.preview-comparison,.preview-opportunity{border-radius:var(--radius-md)!important}
+.modal{border-radius:var(--radius-xl)!important;background:var(--surface-1)!important;border:1px solid rgba(255,255,255,.09)!important;box-shadow:var(--shadow-lg)!important}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent)!important;outline-offset:2px!important}
+@media(min-width:650px){.tabs{left:50%!important;right:auto!important;transform:translateX(-50%)!important;max-width:600px!important;border-left:1px solid rgba(255,255,255,.08)!important;border-right:1px solid rgba(255,255,255,.08)!important;border-radius:18px 18px 0 0!important}}
+@media(prefers-reduced-motion:reduce){.tab{transition:none!important}}
 </style></head>
 <body>
 <div class="app">
-  <nav class="tabs">
-    <button class="tab active" data-tab="week"><span class="tabicon">▣</span><span class="display tablabel">Weekly</span></button>
-    <button class="tab" data-tab="log"><span class="tabicon">＋</span><span class="display tablabel">Log</span></button>
-    <button class="tab" data-tab="calendar"><span class="tabicon">▦</span><span class="display tablabel">Calendar</span></button>
-    <button class="tab" data-tab="progress"><span class="tabicon">↗</span><span class="display tablabel">Progress</span></button>
-    <button class="tab" data-tab="plan"><span class="tabicon">⚙</span><span class="display tablabel">Plan</span></button>
-  </nav>
+  <nav class="tabs" aria-label="Primary navigation"><button class="tab active" data-tab="week" aria-label="Weekly"><span class="tabicon"><svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M7 2v4M17 2v4M3 9h18"/><path d="m8 15 2 2 4-4"/></svg></span><span class="display tablabel">Weekly</span></button>
+    <button class="tab" data-tab="log" aria-label="Log"><span class="tabicon"><svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/><circle cx="12" cy="12" r="9"/></svg></span><span class="display tablabel">Log</span></button>
+    <button class="tab" data-tab="calendar" aria-label="Calendar"><span class="tabicon"><svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M7 2v4M17 2v4M3 9h18M8 13h2M14 13h2M8 17h2"/></svg></span><span class="display tablabel">Calendar</span></button>
+    <button class="tab" data-tab="progress" aria-label="Progress"><span class="tabicon"><svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18h18M5 15l5-5 4 3 5-7"/><path d="M15 6h4v4"/></svg></span><span class="display tablabel">Progress</span></button>
+    <button class="tab" data-tab="plan" aria-label="Plan"><span class="tabicon"><svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="8" cy="7" r="2" fill="var(--surface-3)" stroke="currentColor"/><circle cx="16" cy="12" r="2" fill="var(--surface-3)" stroke="currentColor"/><circle cx="10" cy="17" r="2" fill="var(--surface-3)" stroke="currentColor"/></svg></span><span class="display tablabel">Plan</span></button></nav>
   <main class="wrap">
     <section id="tab-week"></section>
     <section id="tab-log" class="hidden"></section>
