@@ -1482,6 +1482,16 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .calday:has(.cal-status.partial){background:rgba(var(--accent-rgb),.12)!important}
 .calday:has(.cal-status.missed){background:rgba(217,109,99,.10)!important}
 @media(prefers-reduced-motion:reduce){.motion-reveal,.motion-celebrate,.motion-enter,.motion-sparkles i,.set-complete-btn.done,.setrow:has(.set-complete-btn.done),.recap-modal .recap-stat,.recap-modal .recap-row,.recap-modal .recap-box,.weight-memory-badge.mastered,.weight-badge.mastered{animation:none!important}*,*:before,*:after{scroll-behavior:auto!important;transition-duration:0.01ms!important}}
+</style><style id="overload-launch-transition-v1">
+#overload-launch{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#14151A;pointer-events:none;opacity:1;transition:opacity .32s ease;overflow:hidden}
+#overload-launch.is-leaving{opacity:0}
+#overload-launch .launch-mark{width:min(74vw,330px);max-height:110px;object-fit:contain;display:block;opacity:0;transform:translateY(10px) scale(.94);animation:overloadLogoArrive .48s cubic-bezier(.2,.8,.2,1) .06s forwards;filter:drop-shadow(0 7px 20px rgba(91,155,217,.12))}
+#overload-launch .launch-halo{position:absolute;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(91,155,217,.10),transparent 70%);opacity:0;animation:overloadHalo .55s ease .08s forwards}
+@keyframes overloadLogoArrive{to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes overloadHalo{to{opacity:1}}
+body.overload-opening .app{opacity:.94;transform:translateY(5px)}
+body.overload-open .app{opacity:1;transform:translateY(0);transition:opacity .36s ease,transform .36s cubic-bezier(.2,.8,.2,1)}
+@media(prefers-reduced-motion:reduce){#overload-launch,#overload-launch .launch-mark,#overload-launch .launch-halo,body.overload-opening .app,body.overload-open .app{animation:none!important;transition:none!important;transform:none!important}}
 </style></head>
 <body>
 <div class="app">
@@ -4721,6 +4731,35 @@ localStorage.removeItem("overloadSkipDemoSeed");applyTheme();seedDemo();save();t
      },50);
    }
  });
+})();
+</script><script id="overload-launch-controller">
+(()=>{
+ // The installed-app OS splash is outside webpage control; this matches its dark background.
+ const reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+ if(reduced)return;
+ let logo="";
+ try{
+   const markup=brandMarkSVG();
+   const template=document.createElement("template");template.innerHTML=markup;
+   logo=template.content.querySelector("img")?.getAttribute("src")||"";
+ }catch(_){}
+ if(!logo)return;
+ const layer=document.createElement("div");
+ layer.id="overload-launch";
+ layer.setAttribute("aria-hidden","true");
+ layer.innerHTML='<div class="launch-halo"></div><img class="launch-mark" alt="" />';
+ layer.querySelector("img").src=logo;
+ document.body.appendChild(layer);
+ document.body.classList.add("overload-opening");
+ // A short first-paint logo handoff, not a loading delay.
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{
+   setTimeout(()=>{
+     document.body.classList.remove("overload-opening");
+     document.body.classList.add("overload-open");
+     layer.classList.add("is-leaving");
+     setTimeout(()=>layer.remove(),350);
+   },520);
+ }));
 })();
 </script></body>
 </html>
