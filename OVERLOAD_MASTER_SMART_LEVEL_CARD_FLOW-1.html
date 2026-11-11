@@ -2248,7 +2248,8 @@ function initDraft(){
      return {
        weight:s.weight!=null?String(s.weight):String(w||""),
        reps:s.reps!=null?String(s.reps):"",
-       restAfter:s.restAfter==null?null:Number(s.restAfter)
+       restAfter:s.restAfter==null?null:Number(s.restAfter),
+       completed:Number(s.reps)>0
      };
    });
  }else{
@@ -3824,7 +3825,8 @@ function saveExercise(){
  draft=sets.map(s=>({
    weight:String(s.weight),
    reps:String(s.reps),
-   restAfter:s.restAfter==null?null:Number(s.restAfter)
+   restAfter:s.restAfter==null?null:Number(s.restAfter),
+   completed:Number(s.reps)>0
  }));
 
  notify(existingIndex>=0?"Exercise updated":"Exercise logged");
